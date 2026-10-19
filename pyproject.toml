@@ -1,0 +1,19 @@
+[project]
+name = "music-library-api"
+version = "1.0.0"
+description = "REST service on FastAPI over music tracks plus a resilient httpx client"
+requires-python = ">=3.11"
+dependencies = ["fastapi>=0.144", "uvicorn>=0.54", "httpx>=0.28"]
+
+[tool.mypy]
+python_version = "3.11"
+strict = true
+files = ["app", "client", "tests"]
+plugins = ["pydantic.mypy"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+pythonpath = ["."]
+# Starlette 1.x советует для TestClient форк httpx2; задание требует httpx,
+# и с ним TestClient полностью работает - предупреждение только шумит в отчёте
+filterwarnings = ["ignore:Using `httpx` with `starlette.testclient` is deprecated"]
